@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Se corrigió el valor de viewport quitando los caracteres '<' y '>' sobrantes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Personas</title>
+</head>
+
+<body>
+    <h2>Registro de Personas</h2>
+
+    <form id="Formulario">
+        <table>
+            <tr>
+                <td>Nombres:</td>
+                <td>
+                    <input id="txtNombres" type="text" required />
+                </td>
+            </tr>
+
+            <tr>
+                <td>Apellidos:</td>
+                <td>
+                    <input id="txtApellidos" type="text" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Correo:</td>
+                <td>
+                    <input id="txtCorreo" type="email" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Edad:</td>
+                <td>
+                    <input id="txtEdad" type="number" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button id="boton_registrar" type="submit">Registrar</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h3>Persona registrada</h3>
+
+    <div id="resultado">
+        Ninguno
+    </div>
+
+    <script>
+      const form = document.getElementById('Formulario');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var nombres = document.getElementById("txtNombres").value;
+    var apellidos = document.getElementById("txtApellidos").value;
+    var correo = document.getElementById("txtCorreo").value;
+    var edad = document.getElementById("txtEdad").value;
+
+    document.getElementById("resultado").innerHTML = 
+        "<table border='1' style='border-color: black; border-collapse: collapse;'>" +
+            "<tr><td><b>Nombres:</b></td><td>" + nombres + "</td></tr>" +
+            "<tr><td><b>Apellidos:</b></td><td>" + apellidos + "</td></tr>" +
+            "<tr><td><b>Correo:</b></td><td>" + correo + "</td></tr>" +
+            "<tr><td><b>Edad:</b></td><td>" + edad + " años</td></tr>" +
+        "</table>";
+
+    form.reset();
+});
+    </script>
+</body>
+
+</html>
