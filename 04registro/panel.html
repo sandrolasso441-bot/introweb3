@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Personas</title>
+    <!-- Fuentes e Íconos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Banner Superior (X del boceto) */
+        .banner-header {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.75), rgba(30, 41, 59, 0.85)), url('img/banner.avif') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.2);
+        }
+
+        .banner-title { text-align: center; }
+        .banner-title h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 6px; }
+        .banner-title p { font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
+
+        /* Navegación A, B, C, D */
+        .nav-bar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Estructura Principal Grid */
+        .main-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        /* Menú Lateral 1, 2, 3, 4 */
+        .sidebar {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+            height: fit-content;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.92rem;
+            gap: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: #eff6ff;
+            color: var(--primary-color);
+        }
+
+        .badge-num {
+            background: #e2e8f0;
+            color: #475569;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .menu-item.active .badge-num { background: var(--primary-color); color: #ffffff; }
+
+        /* Sección Central Formulario */
+        .content-area { display: flex; flex-direction: column; gap: 2rem; }
+
+        .card-container {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-container::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 5px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+        }
+
+        .section-header { margin-bottom: 2rem; }
+        .section-header h2 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .section-header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: #334155; }
+
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .input-wrapper i { position: absolute; left: 1rem; color: #94a3b8; font-size: 1rem; }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.75rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-submit {
+            grid-column: span 2;
+            margin-top: 1rem;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-submit:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        /* Resultados */
+        .results-section {
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border: 2px dashed #e2e8f0;
+            border-radius: var(--radius-md);
+            background: #f8fafc;
+        }
+
+        .empty-state i { font-size: 2rem; margin-bottom: 0.5rem; color: #cbd5e1; display: block; }
+
+        .result-card {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-card th, .result-card td { padding: 1rem 1.25rem; text-align: left; }
+        .result-card th { background: #f8fafc; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; width: 30%; }
+        .result-card td { background: #ffffff; font-weight: 500; border-bottom: 1px solid #f1f5f9; }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 868px) {
+            .main-container { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .btn-submit { grid-column: span 1; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header / Banner Top -->
+    <header class="banner-header">
+        <div class="banner-title">
+            <h1>Portal de Registro</h1>
+            <p>Plataforma de Gestión de Personas y Perfiles</p>
+        </div>
+    </header>
+
+    <!-- Navegación Superior (Secciones A, B, C, D) -->
+    <nav class="nav-bar">
+        <a href="#" class="nav-item active"><i class="fa-solid fa-house"></i> Opción A</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-layer-group"></i> Opción B</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Opción C</a>
+        <a href="#" class="nav-item"><i class="fa-solid fa-gear"></i> Opción D</a>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="main-container">
+
+        <!-- Panel Lateral (Secciones 1, 2, 3, 4) -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Menú Principal</div>
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <span class="badge-num">1</span>
+                    <span>General</span>
+                </li>
+                <li class="menu-item active">
+                    <span class="badge-num">2</span>
+                    <span>Registro Form</span>
+                </li>
+                <li class="menu-item">
+                    <span class="badge-num">3</span>
+                    <span>Usuarios</span>
+                </li>
+                <li class="menu-item">
+                    <span class="badge-num">4</span>
+                    <span>Ajustes</span>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Área Central -->
+        <main class="content-area">
+
+            <!-- Card Formulario Principal -->
+            <section class="card-container">
+                <div class="section-header">
+                    <h2><i class="fa-solid fa-user-plus" style="color: var(--primary-color);"></i> Registro de Personas</h2>
+                    <p>Por favor ingrese los datos solicitados para completar la inscripción.</p>
+                </div>
+
+                <form id="Formulario">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="txtNombres">Nombres</label>
+                            <div class="input-wrapper">
+                                <input id="txtNombres" class="form-control" type="text" placeholder="Ej. Juan Andrés" required />
+                                <i class="fa-regular fa-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtApellidos">Apellidos</label>
+                            <div class="input-wrapper">
+                                <input id="txtApellidos" class="form-control" type="text" placeholder="Ej. Pérez Gómez" required />
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtCorreo">Correo Electrónico</label>
+                            <div class="input-wrapper">
+                                <input id="txtCorreo" class="form-control" type="email" placeholder="ejemplo@correo.com" required />
+                                <i class="fa-regular fa-envelope"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtEdad">Edad</label>
+                            <div class="input-wrapper">
+                                <input id="txtEdad" class="form-control" type="number" placeholder="Ej. 25" min="1" max="120" required />
+                                <i class="fa-solid fa-cake-candles"></i>
+                            </div>
+                        </div>
+
+                        <button id="boton_registrar" class="btn-submit" type="submit">
+                            <i class="fa-solid fa-paper-plane"></i> Registrar Persona
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Resultados -->
+            <section class="results-section">
+                <div class="section-header" style="margin-bottom: 1rem;">
+                    <h2><i class="fa-solid fa-address-card" style="color: var(--primary-color);"></i> Persona Registrada</h2>
+                </div>
+
+                <div id="resultado">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-folder-open"></i>
+                        Aún no se ha registrado ninguna persona.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Copyright 2026 | Sandro Lasso </p>
+    </footer>
+
+    <!-- Lógica JS intacta -->
+    <script>
+        const form = document.getElementById('Formulario');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var nombres = document.getElementById("txtNombres").value;
+            var apellidos = document.getElementById("txtApellidos").value;
+            var correo = document.getElementById("txtCorreo").value;
+            var edad = document.getElementById("txtEdad").value;
+
+            document.getElementById("resultado").innerHTML = 
+                "<table class='result-card'>" +
+                    "<tr><th>Nombres</th><td>" + nombres + "</td></tr>" +
+                    "<tr><th>Apellidos</th><td>" + apellidos + "</td></tr>" +
+                    "<tr><th>Correo</th><td>" + correo + "</td></tr>" +
+                    "<tr><th>Edad</th><td>" + edad + " años</td></tr>" +
+                "</table>";
+
+            form.reset();
+        });
+    </script>
+</body>
+</html>
