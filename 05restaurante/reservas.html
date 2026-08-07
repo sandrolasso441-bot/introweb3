@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet & Carbón | Gestión de Reservas</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <h1>Gourmet & Carbón</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="menu.html">Nuestro Menú</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="reservas.html" class="active">Gestión de Reservas</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        <h2 class="section-title">Administración de Reservas</h2>
+        
+        <!-- INDICADORES / ESTADÍSTICAS (Requisito JS) -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-num" id="stat-total">0</span>
+                <span class="stat-label">Total Reservas</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="stat-personas">0</span>
+                <span class="stat-label">Total Comensales</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-num" id="stat-vip">0</span>
+                <span class="stat-label">Clientes VIP</span>
+            </div>
+        </div>
+
+        <div class="admin-grid">
+            <!-- Formulario de Registro / Edición -->
+            <section class="form-section">
+                <h3 id="form-title">Nueva Reserva</h3>
+                <form id="reserva-form" novalidate>
+                    <input type="hidden" id="reserva-id">
+                    
+                    <div class="form-group">
+                        <label for="cliente">Nombre del Cliente *</label>
+                        <input type="text" id="cliente" required placeholder="Ej. Juan Pérez">
+                        <span class="error-msg" id="err-cliente"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fecha">Fecha *</label>
+                        <input type="date" id="fecha" required>
+                        <span class="error-msg" id="err-fecha"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hora">Hora *</label>
+                        <input type="time" id="hora" required>
+                        <span class="error-msg" id="err-hora"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personas">Número de Personas *</label>
+                        <input type="number" id="personas" min="1" max="20" required placeholder="1-20">
+                        <span class="error-msg" id="err-personas"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zona">Zona de Preferencia *</label>
+                        <select id="zona" required>
+                            <option value="">Seleccione una zona...</option>
+                            <option value="Salón Principal">Salón Principal</option>
+                            <option value="Terraza al Aire Libre">Terraza al Aire Libre</option>
+                            <option value="Salón Privado (VIP)">Salón Privado (VIP)</option>
+                        </select>
+                        <span class="error-msg" id="err-zona"></span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="vip">
+                        <label for="vip">Cliente Frecuente / VIP</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="btn-submit">Registrar Reserva</button>
+                        <button type="button" class="btn-secondary" id="btn-cancel" style="display:none;">Cancelar Edición</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Tabla de Visualización y Controles -->
+            <section class="table-section">
+                <h3>Listado de Reservas</h3>
+                
+                <!-- Buscador y Ordenamiento (Requisito JS) -->
+                <div class="controls-bar">
+                    <input type="text" id="search-input" placeholder="Buscar por cliente o zona...">
+                    <select id="sort-select">
+                        <option value="fecha">Ordenar por Fecha</option>
+                        <option value="personas">Ordenar por Comensales (Mayor a Menor)</option>
+                        <option value="cliente">Ordenar por Nombre</option>
+                    </select>
+                </div>
+
+                <!-- Tabla Responsiva -->
+                <div class="table-responsive">
+                    <table id="reservas-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Fecha y Hora</th>
+                                <th>Personas</th>
+                                <th>Zona</th>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reservas-tbody">
+                            <!-- Filas dinámicas generadas por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Gourmet & Carbón. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Vinculación del Script Principal -->
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+:root {
+    /* Paleta de Colores Elegante (Negro, Dorado/Ocre sutil, Fondos Suaves) */
+    --color-primary: #1a1a1a;
+    --color-accent: #c5a880;
+    --color-accent-hover: #b39369;
+    --color-bg: #fdfcf9;
+    --color-surface: #ffffff;
+    --color-text: #333333;
+    --color-text-muted: #666666;
+    --color-border: #e6e1da;
+    --color-error: #a94442;
+    --color-error-bg: #f2dede;
+    --color-success: #3c763d;
+    --color-success-bg: #dff0d8;
+    
+    /* Tipografías y Espaciados */
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --transition-fast: all 0.3s ease;
+    --border-radius: 6px;
+    --box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
