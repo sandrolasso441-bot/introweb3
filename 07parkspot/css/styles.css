@@ -1,0 +1,20 @@
+/* Configuración del Banner Principal */
+.banner-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), 
+              url('../img/banner.png') center/cover no-repeat;
+  color: #ffffff;
+  border-bottom: 4px solid #0d6efd;
+}
+
+/* Sombras suaves para tarjetas */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Ajustes de alineación para dispositivos móviles */
+@media (max-width: 767.98px) {
+  .banner-container {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
